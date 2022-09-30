@@ -1,5 +1,5 @@
 <HTML>
-<HEAD><TITLE> EJ2AM – Arrays Multidimensionales</TITLE></HEAD>
+<HEAD><TITLE> EJ3AM – Arrays Multidimensionales</TITLE></HEAD>
 <BODY>
 <?php
 /*modificar el ejercicio anterior para mostrar la suma de los elementos por filas y por
