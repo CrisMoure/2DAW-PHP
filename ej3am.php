@@ -8,18 +8,20 @@ en primer lugar y a continuación por columna*/
 
 $matriz=array();    #creamos un array vacio
 
-for ($i=1; $i < 6; $i++){ #mediante un bucle for recorremos desde 1 hasta 5 para crear 5 columnas y asignar valores del 1 al 5
-    for ($j=1; $j < 4; $j++){ #mediante otro for recorremos de 1 a 4 para crear las columnas y asignar valores del 1 al 3
+for ($i=1; $i < 4; $i++){ #mediante un bucle for recorremos desde 1 hasta 5 para crear 5 columnas y asignar valores del 1 al 5
+    for ($j=1; $j < 6; $j++){ #mediante otro for recorremos de 1 a 4 para crear las columnas y asignar valores del 1 al 3
         $matriz[$i][$j] = "($i,$j) = (elemento pos $i,$j) - "; #imprimimos
         echo $matriz[$i][$j];  
-    }     
+    }
+    echo "<br>";
 }
 echo "<br><br>";
-for ($i=1; $i < 6; $i++){ 
-    for ($j=1; $j < 4; $j++){ 
+for ($i=1; $i < 4; $i++){ 
+    for ($j=1; $j < 6; $j++){ 
         $matriz[$j][$i] = "($j,$i) = (elemento pos $j,$i) - "; #para imprimirlo al reves le damos la vuelta a los valores
         echo $matriz[$j][$i]; 
-    }     
+    }  
+    echo "<br>";
 }
 
 
