@@ -2,9 +2,8 @@
 <HEAD><TITLE> EJ3AM – Arrays Multidimensionales</TITLE></HEAD>
 <BODY>
 <?php
-/*modificar el ejercicio anterior para mostrar la suma de los elementos por filas y por
-columnas. Los valores se almacenarán en dos arrays.crear una matriz de 3x5 mostrarla por pantalla imprimiendo los elementos por fila
-en primer lugar y a continuación por columna*/
+/*crear una matriz de 3x5 mostrarla por pantalla imprimiendo los elementos por fila
+en primer lugar y a continuación por columna.*/
 
 $matriz=array();    #creamos un array vacio
 
