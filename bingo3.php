@@ -37,8 +37,25 @@ function girarbombo(){  //funcion para crear el bombo y mezclarlo
 // var_dump($jugador2);
 echo "<br><br>";
 
-sacarbola();
-function sacarbola(){
+$carton=generarCarton(); 
+$bombo1=girarbombo();
+var_dump($carton);     
+var_dump($bombo1);
+        
+        
+$i=0;
+ do{  
+        
+     $bola=$bombo1[$i];
+     if(in_array($bola, $carton)) $cont1++;               
+     i++;    
+     echo $i."-".$cont1;
+    } while(($cont1 < 15));        
+        
+        
+        
+//sacarbola();
+/*function sacarbola(){
     $cont1 = 0;
     $cont2 = 0;
     $cont3 = 0;
@@ -75,7 +92,7 @@ function sacarbola(){
             }else echo "ganador: pepe3 <br>";
     
 
-    }
+    }*/
 
 ?>
 </BODY>
