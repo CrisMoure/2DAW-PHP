@@ -6,7 +6,7 @@
     </head>
     <body>
         <h1>CONVERSOR BINARIO</h1>
-        <form name="form" method="post" action="<?php $_SERVER['PHP_SELF']; ?>">
+        <form name="form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
             <label for="decimal">Número decimal: </label>
             <input type="text" name="decimal">
             <br>
