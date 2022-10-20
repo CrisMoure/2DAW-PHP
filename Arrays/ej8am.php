@@ -16,7 +16,7 @@ for($i = 0; $i < 3; $i++){  #mediante un for recorremos desde 0 hasta 3 para cre
     echo "<tr>";
     for($j = 0; $j < 3; $j++){  #mediante un for recorremos desde 0 hasta 3 para crear 3 columnas
         echo "<td>";
-        $matriz1[$i][$j] = rand(1,10);   #asignamos valores aleatorios entre 1 y 40 por ej a cada posicion de la matriz
+        $matriz1[$i][$j] = rand(1,10);   #asignamos valores aleatorios entre 1 y 10 por ej a cada posicion de la matriz
         echo $matriz1[$i][$j];
         echo "</td>";
     }
