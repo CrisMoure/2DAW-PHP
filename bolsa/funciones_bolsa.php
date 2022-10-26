@@ -106,35 +106,94 @@ function mostrarDatos($fichero, $empresa, $tipo){  # siendo $tipo el valor que q
     return $res;
 }
 
-function calcularVolumen($fichero){
+function calcularTotal($fichero, $opcion){
     $leido = file($fichero);
     $res =0;
     $cont = 0;
-    foreach($leido as $value){
-        if($cont == 0) $cont++;
-        else{
-            $num = substr($value, 78, 92-79);
-            $num2 = str_replace(".","",$num); 
-            $res += (int)$num2; 
-        }
-        
+    switch($opcion){
+        case "volumen":
+            foreach($leido as $value){
+                if($cont == 0) $cont++;
+                else{
+                    $num = substr($value, 78, 92-79);
+                    $num2 = str_replace(".","",$num); 
+                    $res += (int)$num2; 
+                }
+                
+            }
+            break;
+        case "capit":
+            foreach($leido as $value){
+                if($cont == 0) $cont++;
+                else{
+                    $num = substr($value, 91, 101-92);
+                    $num2 = str_replace(".","",$num); 
+                    $res += (int)$num2;           
+                }       
+            }
+            break;
     }
+    
     return $res;
 }
 
-function calcularCapitalizacion($fichero){
+function maxMinVol($fichero){
     $leido = file($fichero);
-    $res = 0;
+    $max = 0;
+    $min= 1000000;
     $cont = 0;
     foreach($leido as $value){
         if($cont == 0) $cont++;
         else{
-            $num = substr($value, 91, 101-92);
-            $num2 = str_replace(".","",$num); 
-            $res += (int)$num2;           
-        }       
+            $vol = substr($value, 78, 92-79);
+            $vol = (int)str_replace(".","",$vol); 
+        if($vol > $max){
+            $max = $vol;
+        }if ($vol<$min) {
+            $min = $vol;
+        }
+        }   
     }
-    return $res;
+    foreach($leido as $value){ 
+        $name = substr($value, 0,24-1); 
+        $vol2 = substr($value, 78, 92-79); 
+        $vol = str_replace(".","",$vol2); 
+        if(strpos($vol, strval($min)) !== false){
+            echo "$name el minimo es $min <br>";
+        }   
+        if(strpos($vol, strval($max)) !== false){
+            echo "$name el maximo es $max <br>";
+        }   
+    }
+}
 
+function maxMinCapi($fichero){
+    $leido = file($fichero);
+    $max = 0;
+    $min= 1000000;
+    $cont = 0;
+    foreach($leido as $value){
+        if($cont == 0) $cont++;
+        else{
+            $vol = substr($value, 91, 101-92);
+            $vol = (int)str_replace(".","",$vol); 
+        if($vol > $max){
+            $max = $vol;
+        }if ($vol<$min) {
+            $min = $vol;
+        }
+        }   
+    }
+    foreach($leido as $value){ 
+        $name = substr($value, 0,24-1); 
+        $vol2 = substr($value, 91, 101-92); 
+        $vol = str_replace(".","",$vol2); 
+        if(strpos($vol, strval($min)) !== false){
+            echo "$name el minimo es $min <br>";
+        }   
+        if(strpos($vol, strval($max)) !== false){
+            echo "$name el maximo es $max <br>";
+        }   
+    }
 }
 ?>

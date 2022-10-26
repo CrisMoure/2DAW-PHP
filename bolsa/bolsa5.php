@@ -21,14 +21,12 @@
             $bolsa = "ibex35.txt";      
         if(isset($_POST["submit"])){    #comprobamos si se ha hecho un submit para que no de error si no se ha introducidp valor aún      
             $option = $_POST["consulta"];
-
+            $total = calcularTotal($bolsa, $option);
             if($option == "volumen"){
-                $total = calcularVolumen($bolsa);
                 echo "<br><br>";
                 echo "<p><b>Total Volumen </b>".$total."</p>";
             }
             if($option == "capit"){
-                $total = calcularCapitalizacion($bolsa);
                 echo "<br><br>";
                 echo "<p><b>Total Capitalizacion </b>".$total."</p>";
             }
