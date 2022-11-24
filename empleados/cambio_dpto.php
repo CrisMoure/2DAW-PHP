@@ -9,6 +9,7 @@
 <body>
     <h1>CAMBIO DE DEPARTAMENTO</h1>
     <form name="cambiodpto" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+	    <input type="text" name="dni" placeholder="dni" hidden>
         <label for="dni">DNI</label>
         <?php
             require "bd_fun.php";
@@ -17,15 +18,13 @@
         <br><br>
         <label for="dpto_act">Departamento actual</label>
         <input type="submit" name="most_dep" value="Mostrar">
-        <?php
-        
+        <?php        
         if(isset($_POST["most_dep"])){
             $dni = $_POST["emple"];
+			echo "<input type='text' name='dni' placeholder='dni' hidden value=".$dni.">";
             echo "Has seleccionado el DNI ".$dni."<br>";
             $dpto_act = mostrarDepAct($dni);
-            echo "<br>El departamento actual es: ".$dpto_act;
-            
-            
+            echo "<br>El departamento actual es: ".$dpto_act;        
         }
         ?>
         <br><br>
@@ -39,28 +38,21 @@
         <br><br>
         <input type="submit" value="Realizar cambios" name="insert">
         <input type="reset" value="Borrar">
-    </form>
-
-    <?php
-    $dni = $_POST["emple"];
-    $dpto_act = mostrarDepAct($dni);
-    $fecha_inic = test_input($_POST["fecha_inic"]);
+    </form>    
+    <?php    
     if(isset($_POST["insert"])){
+		#var_dump($_POST);
+		$dni = $_POST["dni"];
+		
+        $dpto_act = mostrarDepAct($dni);
+        $fecha_inic = test_input($_POST["fecha_inic"]);
         #recogida parametros
-       #$dni = $_POST["emple"];
         $fecha_inic = test_input($_POST["fecha_inic"]);
         $dpto_nuevo = $_POST["dpto"];
-        $conn = connect();
-         
-        //echo "dni $dni nombre $nombre salario $salario fecha $fecha_nac dpto $dpto";
-        
-        echo "$dni ------ $fecha_inic ----- $dpto_nuevo --------- $dpto_act";
-
-       // update_dpto_act($dni, $dpto_act, $fecha_inic, $conn);
-       // update_dpto_nuevo($dni, $dpto_nuevo, $fecha_inic, $conn);
-    }
-
-        ?>
-
-</body>
+        $conn = connect();           
+        update_dpto_act($dni, $dpto_act, $fecha_inic, $conn);
+        update_dpto_nuevo($dni, $dpto_nuevo, $fecha_inic, $conn);
+    }        
+    ?>
+    </body>
 </html>

@@ -114,7 +114,7 @@ function update_dpto_nuevo($dni, $cod_dpto, $fecha_inic, $conn){    #recibe el d
         try{
             $stmt = $conn->prepare("INSERT INTO emple_dpto (cod_dpto,dni,fecha_inicio) VALUES (:cod_dpto,:dni,:fecha_inicio)");
             $stmt->bindParam(':dni', $dni);
-            $stmt->bindParam(':fecha_inic', $fecha_inic);
+            $stmt->bindParam(':fecha_inicio', $fecha_inic);
             $stmt->bindParam(':cod_dpto', $cod_dpto);
         
             #ejecucion sentencia
