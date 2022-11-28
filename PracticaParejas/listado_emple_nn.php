@@ -24,7 +24,8 @@
         #recogida parametros
         $dpto = $_POST["dpto"];
         $conn = connect();
-        listarEmple($dpto, $conn);
+        $array = listarEmple($dpto, $conn);
+        mostrarLista($array);
     }
 
         ?>

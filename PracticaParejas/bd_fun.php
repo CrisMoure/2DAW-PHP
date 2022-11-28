@@ -205,7 +205,7 @@ function salario_nuevo($salario_new , $dni){
 function mostrarDepAct($dni){   #recibe el dni del empleado y muestra el departamento en el que se encuentra actualmente
     try{
         $conn = connect();
-        $sth = $conn->prepare("SELECT dpto.id, dpto.nombre FROM dpto, emple_dpto WHERE dni_emple=:dni AND emple_dpto.id_dpto=dpto.id");
+        $sth = $conn->prepare("SELECT dpto.id, dpto.nombre FROM dpto, emple_dpto WHERE dni_emple=:dni AND emple_dpto.id_dpto=dpto.id AND emple_dpto.fecha_fin IS NULL");
         $sth->bindParam(':dni', $dni);
         $sth->execute();
     
@@ -236,21 +236,24 @@ function listarEmple($cod_dpto, $conn){ #recibe el cod_dpto y muestra un listado
 
         /* Fetch all of the values of the first column*/
         $result = $sth->fetchAll(\PDO::FETCH_NUM);
-        
-        echo "<table cellpadding='8%'><tr><th>DNI</th><th>NOMBRE</th><th>SALARIO</th><th>FECHA NAC</th><th>ID DPTO</th></tr>";
-        foreach ($result as $key => $value) {
-            echo "<tr>";
-            for ($i=0; $i < count($value); $i++) { 
-                echo "<td>".$value[$i] ."</td>";
-            }
-            echo "</tr>";
-        }
-        echo "</table>";
-    
-        
+        return $result;
+  
     }
     catch(PDOException $e)
     {
         echo "Error: " . $e->getMessage();
     }
+}
+
+function mostrarLista($arr){
+    echo "<table cellpadding='8%'><tr><th>DNI</th><th>NOMBRE</th><th>SALARIO</th><th>FECHA NAC</th><th>ID DPTO</th></tr>";
+    foreach ($arr as $key => $value) {
+        echo "<tr>";
+        for ($i=0; $i < count($value); $i++) { 
+            echo "<td>".$value[$i] ."</td>";
+        }
+        echo "</tr>";
+    }
+    echo "</table>";
+
 }
