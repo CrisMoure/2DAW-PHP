@@ -59,19 +59,20 @@ function alta_alm($loc, $conn){ #recibe la conexion y la localidad e inserta en 
     }
 }
 
-
 function consulta_stock($id, $conn){    #recibe id del producto seleccionado y la conexion a la BD y devuelve el stock disponible de dicho producto en cada uno de los almacenes
     try{
-        $stmt = $conn->prepare("SELECT * FROM almacena WHERE ID_PRODUCTO=:id");
+        $stmt = $conn->prepare("SELECT * FROM almacena, almacen 
+        WHERE almacena.num_almacen = almacen.num_almacen AND ID_PRODUCTO=:id");
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_NUM);
         foreach($result as $key => $value){
-            $almacen = $value[0];
+            $almacen = $value[4];
             $stock = $value[2];
+            echo "Almacen: $almacen - Stock disponible: $stock <br>";
         }
 
-        echo "Almacen nº: $almacen - Stock disponible: $stock";
+        
     }
     catch(PDOException $e)
     {
@@ -95,16 +96,28 @@ function consulta_compra($nif, $desde, $hasta, $conn){
             
         }
         echo "El gasto total es de : $total €<br>";
- 
-
-
     }
     catch(PDOException $e)
     {
         echo "Error: " . $e->getMessage();
     }
+}
 
+function compra_prod($prod, $cant, $conn){
+    try{
+        $stmt = $conn->prepare("SELECT SUM(CANTIDAD) FROM almacena WHERE ID_PRODUCTO = :prod");
+        $stmt->bindParam(':prod', $prod);
+        $stmt->execute();
 
+        $disponible = $stmt;
+
+        if($disponible >= $cant){
+            $stmt = $conn->prepare("UPDATE almacena SET ");
+        }else{
+            echo "ERROR: no hay suficiente stock del producto elegido";
+        }
+
+    }
 }
 
 //  <!---------------- Patryk ----------------!>
@@ -137,6 +150,7 @@ function alta_prod($nombre,$precio,$id_cat,$conn ){
         echo "Error: " . $e->getMessage();
     }
 }
+
 function select($name = "",$conn){
 
     $sth = $conn->prepare("SELECT * FROM $name");
@@ -156,6 +170,7 @@ function mostrarselect($result,$name = ""){
     echo '</select>';
 
 }
+
 function mostrarselectpos0($result,$name = ""){
 
     echo '<select name="'.$name.'">';
@@ -165,17 +180,48 @@ function mostrarselectpos0($result,$name = ""){
     echo '</select>';
 
 }
+
 function aprpro($id,$almacen,$cantidad,$conn){
     try {
 
-        $stmt = $conn->prepare("INSERT INTO almacena (ID_PRODUCTO, NUM_ALMACEN,CANTIDAD) VALUES (:id_prod,:alma,:cant)");
+        $stmt = $conn->prepare("SELECT * FROM almacena where id_producto=:id && num_almacen = :almacen");
+
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':almacen', $almacen);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(\PDO::FETCH_NUM);
+
+        $cont = count($result);
+
+        foreach ($result as $key => $value) {
+            $sum = $value[2];
+        }
+
+
+        if ($cont == 1) {
+
+        $sum1 = $sum + $cantidad;
+
+        $stmt = $conn->prepare("UPDATE almacena SET cantidad = :cant where id_producto = :id_prod && num_almacen = :alma");
 
         $stmt->bindParam(':id_prod', $id);
-        $stmt->bindParam(':cant', $cantidad);
+        $stmt->bindParam(':cant', $sum1);
         $stmt->bindParam(':alma', $almacen);
 
         $stmt->execute();
             echo "Aprovisionar Productos correcta<br>";
+
+        }else{
+            $stmt = $conn->prepare("INSERT INTO almacena (ID_PRODUCTO, NUM_ALMACEN,CANTIDAD) VALUES (:id_prod,:alma,:cant)");
+
+            $stmt->bindParam(':id_prod', $id);
+            $stmt->bindParam(':cant', $cantidad);
+            $stmt->bindParam(':alma', $almacen);
+    
+            $stmt->execute();
+                echo "Aprovisionar Productos correcta<br>";
+        }
 
     } catch(PDOException $e)
     {
@@ -212,3 +258,4 @@ function almacen($alma,$conn){
 
 
 ?>
+
