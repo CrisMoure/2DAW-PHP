@@ -1,5 +1,4 @@
 <?php
-
 function test_input($data){ #limpiamos los input
     $data = trim($data);
     $data = stripcslashes($data);
@@ -105,18 +104,34 @@ function consulta_compra($nif, $desde, $hasta, $conn){
 
 function compra_prod($prod, $cant, $conn){
     try{
-        $stmt = $conn->prepare("SELECT SUM(CANTIDAD) FROM almacena WHERE ID_PRODUCTO = :prod");
+        $stmt = $conn->prepare("SELECT * FROM ALMACENA WHERE ID_PRODUCTO = :prod");
         $stmt->bindParam(':prod', $prod);
         $stmt->execute();
 
-        $disponible = $stmt;
-
-        if($disponible >= $cant){
-            $stmt = $conn->prepare("UPDATE almacena SET ");
-        }else{
-            echo "ERROR: no hay suficiente stock del producto elegido";
+        $disponible = $stmt->fetchAll(\PDO::FETCH_NUM);
+        var_dump($disponible);
+        foreach($disponible as $key => $value){
+            $almacen = $value[0];
+            $dispo = $value[2];
+            echo "num almacen: $almacen - dispo: $dispo <br>";
+            if($dispo >= $cant){
+                $resto = $dispo - $cant;
+                echo $resto."<br>";
+            }
         }
 
+        // if($disponible[0][0] >= $cant){
+        //     $resto = $disponible[0][0] - $cant;
+        //     echo $resto;
+        //     $stmt = $conn->prepare("UPDATE ALMACENA SET CANTIDAD = :resto WHERE ID_PRODUCTO = :prod");
+        //     $stmt->bindParam(':resto', $resto);
+        //     $stmt->bindParam(':prod', $prod);
+        //     $stmt->execute();
+        // }
+    }
+    catch(PDOException $e)
+    {
+        echo "Error: " . $e->getMessage();
     }
 }
 
