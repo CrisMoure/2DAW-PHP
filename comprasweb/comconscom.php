@@ -22,6 +22,8 @@
     <input type="text" name="hasta" value="aaaa-mm-dd">
     <br><br>
     <input type="submit" name="insert" value="Mostrar stock">
+    <br><br>
+    <a href="index.php">Inicio</a>
     </form>
 </body>
 </html>

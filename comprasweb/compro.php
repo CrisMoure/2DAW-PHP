@@ -19,6 +19,8 @@
     <input type="number" name="unid">
     <br><br>
     <input type="submit" name="compra" value="Comprar">
+    <br><br>
+    <a href="index.php">Inicio</a>
     </form>
 </body>
 </html>
@@ -27,6 +29,6 @@
     if (isset($_POST["compra"])) {
         $prod = $_POST["producto"];
         $unid = test_input($_POST["unid"]);
-       # compra_prod($prod, $unid, $conn);
+        compra_prod($prod, $unid, $conn);
     }
 ?>

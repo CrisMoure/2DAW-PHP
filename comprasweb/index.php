@@ -13,6 +13,8 @@
     <a href="comconstock.php">CONSULTA DE STOCK</a><br>
     <a href="comconsalm.php">CONSULTA DE ALMACENES</a><br>
     <a href="comconscom.php">CONSULTA DE COMPRAS</a><br>
+
+    <a href="compro.php">COMPRA DE PRODUCTOS</a><br>
     
 </body>
 </html>

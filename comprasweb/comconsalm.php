@@ -19,7 +19,8 @@
     ?>
     <br>
     <input type="submit" name="alta" value="Aprovisionar Productos">
-
+    <br><br>
+    <a href="index.php">Inicio</a>
     </form>
 
 </body>

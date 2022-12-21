@@ -16,7 +16,8 @@
     ?>
     <br><br>
     <input type="submit" name="insert" value="Mostrar stock">
-    </form>
+    <br><br>
+    <a href="index.php">Inicio</a>
 </body>
 </html>
 
